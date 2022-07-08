@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See harness/README in the NetBeans platform -->
+<!-- for some information on what you could do (e.g. targets to override). -->
+<!-- If you delete this file and reopen the project it will be recreated. -->
+<project name="pt.cjmach.pstconv.autopsymodule" default="netbeans" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <description>Builds, tests, and runs the project pt.cjmach.pstconv.autopsymodule.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <import file="../autopsy/BootstrapIvy.xml"/>
+    
+    <property name="modules.dir" value="${basedir}/release/modules/" />
+    <property name="ext.dir" value="${modules.dir}/ext" />
+    
+    <target name="get-deps" description="retrieve dependencies using ivy" depends="init-ivy">
+        <ivy:settings file="ivysettings.xml" />
+        <ivy:resolve log="quiet"/>
+        <ivy:retrieve pattern="${basedir}/release/modules/ext/[artifact]-[revision](-[classifier]).[ext]" />    
+    </target>
+    
+    <target name="init" depends="get-deps,harness.init"/>
+
+    <target name="clean" depends="projectized-common.clean">
+        <!--Override clean to delete jars, etc downloaded with Ivy, 
+        or copied in from thirdparty folder.  This way we don't end up with 
+        out-of-date/unneeded stuff in the installer-->
+        <delete dir="${basedir}/release"/>
+    </target>
+</project>

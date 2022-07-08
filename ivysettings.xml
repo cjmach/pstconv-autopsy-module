@@ -1,0 +1,15 @@
+<ivysettings>
+    <settings defaultResolver="main"/>
+    
+    <property name="github.user" value="cjmach"  override="true"/>
+    <property name="github.token" value="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"  override="true"/>
+    <credentials host="maven.pkg.github.com" realm="GitHub Package Registry" username="${github.user}" passwd="${github.token}"/>
+    
+    <resolvers>
+        <chain name="main">
+            <ibiblio name="central" root="https://repo1.maven.org/maven2" m2compatible="true"/>
+            <ibiblio name="ibiblio" m2compatible="true"/>
+            <ibiblio name="github" root="https://maven.pkg.github.com/cjmach/pstconv" m2compatible="true" />
+        </chain>
+    </resolvers>
+</ivysettings>
