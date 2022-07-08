@@ -1,8 +1,8 @@
 <ivysettings>
     <settings defaultResolver="main"/>
     
-    <property name="github.user" value="cjmach"  override="true"/>
-    <property name="github.token" value="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"  override="true"/>
+    <property name="github.user" value="cjmach" override="false"/>
+    <property name="github.token" value="token" override="false"/>
     <credentials host="maven.pkg.github.com" realm="GitHub Package Registry" username="${github.user}" passwd="${github.token}"/>
     
     <resolvers>
