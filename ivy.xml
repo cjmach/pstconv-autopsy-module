@@ -1,7 +1,7 @@
 <ivy-module version="2.0">
     <info organisation="pt.cjmach.pstconv" module="autopsymodule"/>
     <dependencies>
-        <dependency org="pt.cjmach" name="pstconv" rev="0.5.1"/>
+        <dependency org="pt.cjmach" name="pstconv" rev="0.6.0"/>
         <exclude org="*" ext="*" type="javadoc"/>
     </dependencies>
 </ivy-module>
