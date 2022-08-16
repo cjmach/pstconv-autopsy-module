@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 AutoUpdate-Show-In-Client: true
 OpenIDE-Module: pt.cjmach.pstconv.autopsymodule/1
-OpenIDE-Module-Implementation-Version: 1
+OpenIDE-Module-Implementation-Version: 2
 OpenIDE-Module-Localizing-Bundle: pt/cjmach/pstconv/autopsymodule/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
 
