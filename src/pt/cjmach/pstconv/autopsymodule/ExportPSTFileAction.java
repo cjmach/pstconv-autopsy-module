@@ -16,6 +16,7 @@
 package pt.cjmach.pstconv.autopsymodule;
 
 import com.pff.PSTException;
+import com.pff.PSTFile;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -27,10 +28,9 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 import org.openide.util.RequestProcessor;
 import org.openide.util.RequestProcessor.Task;
-import org.sleuthkit.autopsy.casemodule.Case;
 import org.sleuthkit.autopsy.coreutils.MessageNotifyUtil;
-import org.sleuthkit.autopsy.datamodel.ContentUtils;
 import org.sleuthkit.datamodel.AbstractFile;
+import org.sleuthkit.datamodel.ReadContentInputStream;
 import pt.cjmach.pstconv.OutputFormat;
 import pt.cjmach.pstconv.PstConverter;
 
@@ -83,26 +83,13 @@ public class ExportPSTFileAction extends AbstractAction {
         final ProgressHandle ph = ProgressHandle.createHandle(
                 NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.name")); // NOI18N
         Task task = RequestProcessor.getDefault().create(() -> {
-            int workunit = 0;
-            int workunits = 2;
-            ph.start(workunits);
-            // Extract OST/PST file to case export directory. File is overwritten if it already exists.
-            Case c = Case.getCurrentCase();
-            File pstFile = new File(c.getExportDirectory(), file.getName());
-            try {
-                ph.progress(NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.step1"), workunit++); // NOI18N
-                ContentUtils.writeToFile(file, pstFile);
-            } catch (IOException ex) {
-                MessageNotifyUtil.Notify.error(
-                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.step1.error"), // NOI18N
-                        ex.getMessage());
-                ph.finish();
-                return;
-            }
-            // Convert extracted OST/PST file to MBOX or EML format.
-            ph.progress(NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.step2", outputFormat.name()), workunit++); // NOI18N
+            ph.start();
+            ph.switchToIndeterminate();
+            
             PstConverter pstconv = new PstConverter();
+            ReadContentInputStream stream = new ReadContentInputStream(file);
             try {
+                PSTFile pstFile = new PSTFile(new PSTInputStreamContent(stream));
                 pstconv.convert(pstFile, outputDir, outputFormat, encoding);
                 DialogDisplayer.getDefault().notifyLater(new NotifyDescriptor.Message(
                         NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.finish"))); // NOI18N
