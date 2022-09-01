@@ -74,7 +74,7 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
         labelEncoding = new javax.swing.JLabel();
         comboBoxEncoding = new javax.swing.JComboBox<>();
 
-        setPreferredSize(new java.awt.Dimension(400, 80));
+        setPreferredSize(new java.awt.Dimension(480, 80));
 
         labelExportToDir.setLabelFor(textFieldOutputDir);
         org.openide.awt.Mnemonics.setLocalizedText(labelExportToDir, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelExportToDir.text")); // NOI18N
