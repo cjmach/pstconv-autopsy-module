@@ -76,6 +76,7 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(400, 80));
 
+        labelExportToDir.setLabelFor(textFieldOutputDir);
         org.openide.awt.Mnemonics.setLocalizedText(labelExportToDir, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelExportToDir.text")); // NOI18N
 
         textFieldOutputDir.setText(org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.textFieldOutputDir.text")); // NOI18N
@@ -87,10 +88,12 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
             }
         });
 
+        labelOutputFormat.setLabelFor(comboBoxOutputFormat);
         org.openide.awt.Mnemonics.setLocalizedText(labelOutputFormat, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelOutputFormat.text")); // NOI18N
 
         comboBoxOutputFormat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MBOX", "EML" }));
 
+        labelEncoding.setLabelFor(comboBoxEncoding);
         org.openide.awt.Mnemonics.setLocalizedText(labelEncoding, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelEncoding.text")); // NOI18N
 
         comboBoxEncoding.setModel(new CharsetComboBoxModel());
@@ -111,11 +114,11 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonBrowseDir))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboBoxOutputFormat, 0, 101, Short.MAX_VALUE)
+                        .addComponent(comboBoxOutputFormat, 0, 1, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(labelEncoding)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxEncoding, 0, 100, Short.MAX_VALUE)))
+                        .addComponent(comboBoxEncoding, 0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -132,7 +135,7 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
                     .addComponent(comboBoxOutputFormat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelEncoding)
                     .addComponent(comboBoxEncoding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

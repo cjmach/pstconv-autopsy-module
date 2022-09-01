@@ -35,11 +35,11 @@
                       <Component id="buttonBrowseDir" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="comboBoxOutputFormat" pref="101" max="32767" attributes="0"/>
+                      <Component id="comboBoxOutputFormat" pref="0" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="labelEncoding" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="comboBoxEncoding" pref="100" max="32767" attributes="0"/>
+                      <Component id="comboBoxEncoding" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -62,7 +62,7 @@
                   <Component id="labelEncoding" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboBoxEncoding" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,6 +70,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelExportToDir">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="textFieldOutputDir"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="pt/cjmach/pstconv/autopsymodule/Bundle.properties" key="ExportPSTFileOptionsPanel.labelExportToDir.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
@@ -94,6 +97,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelOutputFormat">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="comboBoxOutputFormat"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="pt/cjmach/pstconv/autopsymodule/Bundle.properties" key="ExportPSTFileOptionsPanel.labelOutputFormat.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
@@ -114,6 +120,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelEncoding">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="comboBoxEncoding"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="pt/cjmach/pstconv/autopsymodule/Bundle.properties" key="ExportPSTFileOptionsPanel.labelEncoding.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
