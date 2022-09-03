@@ -31,7 +31,7 @@ import org.openide.util.RequestProcessor.Task;
 import org.sleuthkit.autopsy.coreutils.MessageNotifyUtil;
 import org.sleuthkit.datamodel.AbstractFile;
 import org.sleuthkit.datamodel.ReadContentInputStream;
-import pt.cjmach.pstconv.OutputFormat;
+import pt.cjmach.pstconv.MailMessageFormat;
 import pt.cjmach.pstconv.PstConverter;
 
 /**
@@ -76,7 +76,7 @@ public class ExportPSTFileAction extends AbstractAction {
         
         // Collect the user input.
         final File outputDir = new File(panel.getOutputDirectory());
-        final OutputFormat outputFormat = OutputFormat.valueOf(panel.getOutputFormat());
+        final MailMessageFormat outputFormat = MailMessageFormat.valueOf(panel.getOutputFormat());
         final String encoding = panel.getEncoding();
         
         // Create the export task.
