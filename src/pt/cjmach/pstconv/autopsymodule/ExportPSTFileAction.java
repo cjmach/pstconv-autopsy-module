@@ -20,8 +20,12 @@ import com.pff.PSTFile;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import javax.mail.MessagingException;
 import javax.swing.AbstractAction;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.netbeans.api.progress.ProgressHandle;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -73,26 +77,25 @@ public class ExportPSTFileAction extends AbstractAction {
             // User cancelled or closed the dialog.
             return;
         }
-        
+
         // Collect the user input.
         final File outputDir = new File(panel.getOutputDirectory());
         final MailMessageFormat outputFormat = MailMessageFormat.valueOf(panel.getOutputFormat());
         final String encoding = panel.getEncoding();
-        
+
         // Create the export task.
         final ProgressHandle ph = ProgressHandle.createHandle(
                 NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.name")); // NOI18N
         Task task = RequestProcessor.getDefault().create(() -> {
             ph.start();
             ph.switchToIndeterminate();
-            
-            PstConverter pstconv = new PstConverter();
-            ReadContentInputStream stream = new ReadContentInputStream(file);
             try {
-                PSTFile pstFile = new PSTFile(new PSTInputStreamContent(stream));
-                pstconv.convert(pstFile, outputDir, outputFormat, encoding);
+                Instant start = Instant.now();
+                int messageCount = convertPstFile(outputDir, outputFormat, encoding);
+                Instant end = Instant.now();                
+                String elapsedTime = DurationFormatUtils.formatDuration(Duration.between(start, end).toMillis(), "HH'h'mm'm'ss.SSS'S'");
                 DialogDisplayer.getDefault().notifyLater(new NotifyDescriptor.Message(
-                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.finish"))); // NOI18N
+                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.finish", messageCount, elapsedTime))); // NOI18N
             } catch (PSTException | MessagingException | IOException ex) {
                 MessageNotifyUtil.Notify.error(
                         NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.step2.error"), // NOI18N
@@ -103,5 +106,13 @@ public class ExportPSTFileAction extends AbstractAction {
         });
         // start the export task.
         task.schedule(0);
+    }
+
+    int convertPstFile(File outputDir, MailMessageFormat outputFormat, String encoding) throws PSTException, MessagingException, IOException {
+        PstConverter pstconv = new PstConverter();
+        try (ReadContentInputStream stream = new ReadContentInputStream(file)) {
+            PSTFile pstFile = new PSTFile(new PSTInputStreamContent(stream));
+            return pstconv.convert(pstFile, outputDir, outputFormat, encoding);
+        }
     }
 }
