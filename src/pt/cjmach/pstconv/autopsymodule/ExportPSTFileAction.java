@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import javax.mail.MessagingException;
 import javax.swing.AbstractAction;
 import org.apache.commons.lang3.time.DurationFormatUtils;
