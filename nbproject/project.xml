@@ -32,6 +32,14 @@
                     </run-dependency>
                 </dependency>
                 <dependency>
+                    <code-name-base>org.openide.explorer</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>6.69</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
                     <code-name-base>org.openide.filesystems.nb</code-name-base>
                     <build-prerequisite/>
                     <compile-dependency/>
@@ -69,6 +77,14 @@
                     <compile-dependency/>
                     <run-dependency>
                         <specification-version>9.15</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>org.openide.windows</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>6.84</specification-version>
                     </run-dependency>
                 </dependency>
                 <dependency>
@@ -119,8 +135,8 @@
                 <binary-origin>release\modules\ext\bndlib-2.2.0.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
-                <runtime-relative-path>ext/pstconv-0.7.0.jar</runtime-relative-path>
-                <binary-origin>release\modules\ext\pstconv-0.7.0.jar</binary-origin>
+                <runtime-relative-path>ext/pstconv-0.8.2.jar</runtime-relative-path>
+                <binary-origin>release\modules\ext\pstconv-0.8.2.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
                 <runtime-relative-path>ext/commons-lang-2.6.jar</runtime-relative-path>
@@ -153,10 +169,6 @@
             <class-path-extension>
                 <runtime-relative-path>ext/commons-lang3-3.12.0.jar</runtime-relative-path>
                 <binary-origin>release\modules\ext\commons-lang3-3.12.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/ehcache-core-2.5.0.jar</runtime-relative-path>
-                <binary-origin>release\modules\ext\ehcache-core-2.5.0.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
                 <runtime-relative-path>ext/cglib-2.2.2.jar</runtime-relative-path>

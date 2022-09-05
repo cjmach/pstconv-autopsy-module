@@ -90,14 +90,14 @@ public class ExportPSTFileAction extends AbstractAction {
             ph.switchToIndeterminate();
             try {
                 Instant start = Instant.now();
-                int messageCount = convertPstFile(outputDir, outputFormat, encoding);
+                long messageCount = convertPstFile(outputDir, outputFormat, encoding);
                 Instant end = Instant.now();                
                 String elapsedTime = DurationFormatUtils.formatDuration(Duration.between(start, end).toMillis(), "HH'h'mm'm'ss.SSS'S'");
                 DialogDisplayer.getDefault().notifyLater(new NotifyDescriptor.Message(
                         NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.finish", messageCount, elapsedTime))); // NOI18N
             } catch (PSTException | MessagingException | IOException ex) {
                 MessageNotifyUtil.Notify.error(
-                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.step2.error"), // NOI18N
+                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.error"), // NOI18N
                         ex.getMessage());
             } finally {
                 ph.finish();
@@ -107,7 +107,7 @@ public class ExportPSTFileAction extends AbstractAction {
         task.schedule(0);
     }
 
-    int convertPstFile(File outputDir, MailMessageFormat outputFormat, String encoding) throws PSTException, MessagingException, IOException {
+    long convertPstFile(File outputDir, MailMessageFormat outputFormat, String encoding) throws PSTException, MessagingException, IOException {
         PstConverter pstconv = new PstConverter();
         try (ReadContentInputStream stream = new ReadContentInputStream(file)) {
             PSTFile pstFile = new PSTFile(new PSTInputStreamContent(stream));
