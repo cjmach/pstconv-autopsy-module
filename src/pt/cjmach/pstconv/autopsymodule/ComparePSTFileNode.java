@@ -17,6 +17,7 @@ package pt.cjmach.pstconv.autopsymodule;
 
 import java.util.List;
 import org.openide.nodes.AbstractNode;
+import org.openide.nodes.ChildFactory;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
@@ -28,7 +29,8 @@ import org.openide.util.NbBundle;
 class ComparePSTFileNode extends AbstractNode {
     
     ComparePSTFileNode(List<EmailMessage> msgs) {
-        super(new ComparePSTFileChildren(msgs, true));
+        super(Children.create(new ComparePSTFileChildFactory(msgs), true));
+        setDisplayName("Compare Root");
     }
 
     @Override
@@ -36,18 +38,25 @@ class ComparePSTFileNode extends AbstractNode {
         return NbBundle.getMessage(ComparePSTFileNode.class, "ComparePSTFileNode.name");
     }
     
-    static class ComparePSTFileChildren extends Children.Keys<EmailMessage> {
+    static class ComparePSTFileChildFactory extends ChildFactory<EmailMessage> {
+        private final List<EmailMessage> msgs;
 
-        public ComparePSTFileChildren(List<EmailMessage> msgs, boolean lazy) {
-            super(lazy);
-            setKeys(msgs);
+        public ComparePSTFileChildFactory(List<EmailMessage> msgs) {
+            this.msgs = msgs;
         }
 
         @Override
-        protected Node[] createNodes(EmailMessage t) {
-            Node[] nodes = new Node[] { new EmailMessageNode(t) };
-            return nodes;
+        protected Node createNodeForKey(EmailMessage key) {
+            return new EmailMessageNode(key);
         }
+
+        @Override
+        protected boolean createKeys(List<EmailMessage> list) {
+            list.addAll(msgs);
+            return true;
+        }
+
+        
         
     }
 }

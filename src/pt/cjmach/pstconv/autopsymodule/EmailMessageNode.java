@@ -15,7 +15,7 @@
  */
 package pt.cjmach.pstconv.autopsymodule;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import org.openide.nodes.Children;
 import org.openide.nodes.Sheet;
 import org.openide.util.lookup.Lookups;
@@ -28,12 +28,13 @@ import org.sleuthkit.autopsy.datamodel.NodeProperty;
  * @author cmachado
  */
 public final class EmailMessageNode extends DisplayableItemNode {
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
     private final EmailMessage message;
 
     public EmailMessageNode(EmailMessage message) {
         super(Children.LEAF, Lookups.fixed(message));
         this.message = message;
-        setDisplayName(Long.toString(message.getId()));
+        setDisplayName(message.getSourceName());
     }
 
     @Override
@@ -67,16 +68,14 @@ public final class EmailMessageNode extends DisplayableItemNode {
                 "E-mail From", "E-mail From", "", message.getEmailFrom());
         NodeProperty<String> subjectProp = new NodeProperty<>(
                 "Subject", "Subject", "", message.getSubject());
-        NodeProperty<Date> dateReceivedProp = new NodeProperty<>(
-                "Date received", "Date Received", "", message.getDateReceived());
+        NodeProperty<String> dateReceivedProp = new NodeProperty<>(
+                "Date received", "Date Received", "", DATE_FORMAT.format(message.getDateReceived()));
         NodeProperty<String> messageProp = new NodeProperty<>(
                 "Message (plain text)", "Message (plain text)", "", message.getTextBody());
         NodeProperty<Long> idProp = new NodeProperty<>(
                 "Message ID", "Message ID", "", message.getId());
         NodeProperty<String> pathProp = new NodeProperty<>(
                 "Path", "Path", "", message.getPath());
-        NodeProperty<String> threadIdProp = new NodeProperty<>(
-                "Thread ID", "Thread ID", "", message.getThreadId());
         NodeProperty<String> dataSourceProp = new NodeProperty<>(
                 "Data Source", "Data Source", "", message.getDataSource());
         
@@ -87,7 +86,6 @@ public final class EmailMessageNode extends DisplayableItemNode {
         sheetSet.put(messageProp);
         sheetSet.put(idProp);
         sheetSet.put(pathProp);
-        sheetSet.put(threadIdProp);
         sheetSet.put(dataSourceProp);
         return sheet;
     }

@@ -29,7 +29,6 @@ public class EmailMessage {
     private String textBody;
     private long id;
     private String path;
-    private String threadId;
     private String dataSource;
 
     /**
@@ -128,20 +127,6 @@ public class EmailMessage {
      */
     public void setPath(String path) {
         this.path = path;
-    }
-
-    /**
-     * @return the threadId
-     */
-    public String getThreadId() {
-        return threadId;
-    }
-
-    /**
-     * @param threadId the threadId to set
-     */
-    public void setThreadId(String threadId) {
-        this.threadId = threadId;
     }
 
     /**

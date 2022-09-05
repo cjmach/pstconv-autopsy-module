@@ -64,12 +64,11 @@ public class ComparePSTFileWithDirAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Create and show the Export PST File dialog.
         ComparePSTFileWithDirOptionsPanel panel = new ComparePSTFileWithDirOptionsPanel();
         String title = (String) getValue(NAME);
         String[] options = {
-            NbBundle.getMessage(ExportPSTFileAction.class, "ComparePSTFileWithDirOptionsPanel.buttonCompare.text"), // NOI18N
-            NbBundle.getMessage(ExportPSTFileAction.class, "ComparePSTFileWithDirOptionsPanel.buttonCancel.text")}; // NOI18N
+            NbBundle.getMessage(ComparePSTFileWithDirAction.class, "ComparePSTFileWithDirOptionsPanel.buttonCompare.text"), // NOI18N
+            NbBundle.getMessage(ComparePSTFileWithDirAction.class, "ComparePSTFileWithDirOptionsPanel.buttonCancel.text")}; // NOI18N
         String compareOption = options[0];
         NotifyDescriptor nd = new NotifyDescriptor(
                 panel,
@@ -90,7 +89,7 @@ public class ComparePSTFileWithDirAction extends AbstractAction {
         final String encoding = panel.getEncoding();
 
         final ProgressHandle ph = ProgressHandle.createHandle(
-                NbBundle.getMessage(ExportPSTFileAction.class, "ComparePSTFileWithDirOptionsPanel.progressHandle.name")); // NOI18N
+                NbBundle.getMessage(ComparePSTFileWithDirAction.class, "ComparePSTFileWithDirOptionsPanel.progressHandle.name")); // NOI18N
         RequestProcessor.Task task = RequestProcessor.getDefault().create(() -> {
             try {
                 List<EmailMessage> msgs = compareWithDir(outputDir, outputFormat, encoding, ph);
@@ -103,17 +102,20 @@ public class ComparePSTFileWithDirAction extends AbstractAction {
                     tableFilterNode = new TableFilterNode(new EmptyNode("No messages found"), true);
                 } else {
                     ComparePSTFileNode resultNode = new ComparePSTFileNode(msgs);
-                    tableFilterNode = new TableFilterNode(resultNode, enabled, resultNode.getName());
+                    tableFilterNode = new TableFilterNode(resultNode, enabled);
                 }
-                DataResultTopComponent msgsWindow = DataResultTopComponent.createInstance("Compare results", "Compare Results", tableFilterNode, msgs.size(), viewers);
+                DataResultTopComponent msgsWindow = DataResultTopComponent.createInstance(
+                        NbBundle.getMessage(ComparePSTFileWithDirAction.class, "ComparePSTFileWithDirAction.results.title"),
+                        NbBundle.getMessage(ComparePSTFileWithDirAction.class, "ComparePSTFileWithDirAction.results.description", outputDir),
+                        tableFilterNode, msgs.size(), viewers);
                 msgsWindow.requestActive();
             } catch (PSTException | MessagingException | IOException ex) {
                 MessageNotifyUtil.Notify.error(
-                        NbBundle.getMessage(ExportPSTFileAction.class, "ComparePSTFileWithDirOptionsPanel.progressHandle.error"), // NOI18N
+                        NbBundle.getMessage(ComparePSTFileWithDirAction.class, "ComparePSTFileWithDirOptionsPanel.progressHandle.error"), // NOI18N
                         ex.getMessage());
             }
         });
-        // start the export task.
+        // start the task.
         task.schedule(0);
     }
 
@@ -121,7 +123,9 @@ public class ComparePSTFileWithDirAction extends AbstractAction {
         ph.start();
         ph.switchToIndeterminate();
 
-        // mstor system properties must be set from module code.
+        // Unfortunately, this is the only way I've found to set mstor system 
+        // properties when running in the NetBeans Platform. It must be called 
+        // from module code.
         System.setProperty("mstor.mbox.metadataStrategy", "none");
         System.setProperty("mstor.mbox.encoding", encoding);
         System.setProperty("mstor.mbox.bufferStrategy", "default");
@@ -169,8 +173,6 @@ public class ComparePSTFileWithDirAction extends AbstractAction {
             result.setPath("");
         }
 
-        result.setThreadId(msg.getInternetMessageId());
-
         try {
             result.setDataSource(absFile.getDataSource().getName());
         } catch (TskCoreException ex) {
@@ -181,7 +183,7 @@ public class ComparePSTFileWithDirAction extends AbstractAction {
 
     private String getEmailMessagePath(PSTFile file, PSTFolder folder) throws IOException, PSTException {
         if (folder == null || folder.getDescriptorNodeId() == ROOT_FOLDER_DESCRIPTOR_IDENTIFIER) {
-            return "\\\\";
+            return "\\";
         }
         PSTFolder parent = (PSTFolder) PSTObject.detectAndLoadPSTObject(file, folder.getDescriptorNode().parentDescriptorIndexIdentifier);
         return getEmailMessagePath(file, parent) + "\\" + folder.getDisplayName();
