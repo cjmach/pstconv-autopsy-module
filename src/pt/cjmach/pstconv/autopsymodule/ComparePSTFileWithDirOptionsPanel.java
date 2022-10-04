@@ -24,12 +24,12 @@ import org.sleuthkit.autopsy.casemodule.Case;
  *
  * @author cmachado
  */
-public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
+public class ComparePSTFileWithDirOptionsPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ExportPSTOptionsPanel
      */
-    public ExportPSTFileOptionsPanel() {
+    public ComparePSTFileWithDirOptionsPanel() {
         initComponents();
     }
 
@@ -46,7 +46,7 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
      * @return 
      */
     public String getOutputDirectory() {
-        return textFieldOutputDir.getText();
+        return textFieldInputDir.getText();
     }
 
     /**
@@ -54,7 +54,7 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
      * @return 
      */
     public String getOutputFormat() {
-        return (String) comboBoxOutputFormat.getSelectedItem();
+        return (String) comboBoxFormat.getSelectedItem();
     }
 
     /**
@@ -67,34 +67,34 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         labelExportToDir = new javax.swing.JLabel();
-        textFieldOutputDir = new javax.swing.JTextField();
+        textFieldInputDir = new javax.swing.JTextField();
         buttonBrowseDir = new javax.swing.JButton();
         labelOutputFormat = new javax.swing.JLabel();
-        comboBoxOutputFormat = new javax.swing.JComboBox<>();
+        comboBoxFormat = new javax.swing.JComboBox<>();
         labelEncoding = new javax.swing.JLabel();
         comboBoxEncoding = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(480, 80));
 
-        labelExportToDir.setLabelFor(textFieldOutputDir);
-        org.openide.awt.Mnemonics.setLocalizedText(labelExportToDir, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelExportToDir.text")); // NOI18N
+        labelExportToDir.setLabelFor(textFieldInputDir);
+        org.openide.awt.Mnemonics.setLocalizedText(labelExportToDir, org.openide.util.NbBundle.getMessage(ComparePSTFileWithDirOptionsPanel.class, "ComparePSTFileWithDirOptionsPanel.labelExportToDir.text")); // NOI18N
 
-        textFieldOutputDir.setText(org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.textFieldOutputDir.text")); // NOI18N
+        textFieldInputDir.setText(org.openide.util.NbBundle.getMessage(ComparePSTFileWithDirOptionsPanel.class, "ComparePSTFileWithDirOptionsPanel.textFieldInputDir.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(buttonBrowseDir, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.buttonBrowseDir.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(buttonBrowseDir, org.openide.util.NbBundle.getMessage(ComparePSTFileWithDirOptionsPanel.class, "ComparePSTFileWithDirOptionsPanel.buttonBrowseDir.text")); // NOI18N
         buttonBrowseDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseDirActionPerformed(evt);
             }
         });
 
-        labelOutputFormat.setLabelFor(comboBoxOutputFormat);
-        org.openide.awt.Mnemonics.setLocalizedText(labelOutputFormat, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelOutputFormat.text")); // NOI18N
+        labelOutputFormat.setLabelFor(comboBoxFormat);
+        org.openide.awt.Mnemonics.setLocalizedText(labelOutputFormat, org.openide.util.NbBundle.getMessage(ComparePSTFileWithDirOptionsPanel.class, "ComparePSTFileWithDirOptionsPanel.labelOutputFormat.text")); // NOI18N
 
-        comboBoxOutputFormat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MBOX", "EML" }));
+        comboBoxFormat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MBOX", "EML" }));
 
         labelEncoding.setLabelFor(comboBoxEncoding);
-        org.openide.awt.Mnemonics.setLocalizedText(labelEncoding, org.openide.util.NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.labelEncoding.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(labelEncoding, org.openide.util.NbBundle.getMessage(ComparePSTFileWithDirOptionsPanel.class, "ComparePSTFileWithDirOptionsPanel.labelEncoding.text")); // NOI18N
 
         comboBoxEncoding.setModel(new CharsetComboBoxModel());
 
@@ -110,11 +110,11 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(textFieldOutputDir)
+                        .addComponent(textFieldInputDir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonBrowseDir))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboBoxOutputFormat, 0, 1, Short.MAX_VALUE)
+                        .addComponent(comboBoxFormat, 0, 1, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(labelEncoding)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -127,12 +127,12 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelExportToDir)
-                    .addComponent(textFieldOutputDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldInputDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonBrowseDir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelOutputFormat)
-                    .addComponent(comboBoxOutputFormat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxFormat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelEncoding)
                     .addComponent(comboBoxEncoding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -142,13 +142,13 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
     private void buttonBrowseDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseDirActionPerformed
         Case c = Case.getCurrentCase();
         File outputDir = new File(c.getExportDirectory());
-        FileChooserBuilder fcb = new FileChooserBuilder(ExportPSTFileOptionsPanel.class)
+        FileChooserBuilder fcb = new FileChooserBuilder(ComparePSTFileWithDirOptionsPanel.class)
                 .setDefaultWorkingDirectory(outputDir)
-                .setTitle(NbBundle.getMessage(ExportPSTFileOptionsPanel.class, "ExportPSTFileOptionsPanel.fileChooser.title")) // NOI18N
+                .setTitle(NbBundle.getMessage(ComparePSTFileWithDirOptionsPanel.class, "ExportPSTFileOptionsPanel.fileChooser.title")) // NOI18N
                 .setDirectoriesOnly(true);
-        File selectedDir = fcb.showSaveDialog();
+        File selectedDir = fcb.showOpenDialog();
         if (selectedDir != null) {
-            textFieldOutputDir.setText(selectedDir.getAbsolutePath());
+            textFieldInputDir.setText(selectedDir.getAbsolutePath());
         }
     }//GEN-LAST:event_buttonBrowseDirActionPerformed
 
@@ -156,10 +156,10 @@ public class ExportPSTFileOptionsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBrowseDir;
     private javax.swing.JComboBox<String> comboBoxEncoding;
-    private javax.swing.JComboBox<String> comboBoxOutputFormat;
+    private javax.swing.JComboBox<String> comboBoxFormat;
     private javax.swing.JLabel labelEncoding;
     private javax.swing.JLabel labelExportToDir;
     private javax.swing.JLabel labelOutputFormat;
-    private javax.swing.JTextField textFieldOutputDir;
+    private javax.swing.JTextField textFieldInputDir;
     // End of variables declaration//GEN-END:variables
 }

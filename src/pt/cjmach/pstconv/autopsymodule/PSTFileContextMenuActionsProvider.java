@@ -15,6 +15,7 @@
  */
 package pt.cjmach.pstconv.autopsymodule;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ public class PSTFileContextMenuActionsProvider implements ContextMenuActionsProv
         switch (mimeType) {
             case "application/vnd.ms-outlook-pst":
             case "application/vnd.ms-outlook":
-                return Collections.<Action>singletonList(new ExportPSTFileAction(file));
+                return Arrays.asList(new ExportPSTFileAction(file), new ComparePSTFileWithDirAction(file));
 
             default:
                 return Collections.<Action>emptyList();
