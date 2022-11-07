@@ -20,11 +20,8 @@ import com.pff.PSTFile;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
 import javax.mail.MessagingException;
 import javax.swing.AbstractAction;
-import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.netbeans.api.progress.ProgressHandle;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -35,6 +32,7 @@ import org.sleuthkit.autopsy.coreutils.MessageNotifyUtil;
 import org.sleuthkit.datamodel.AbstractFile;
 import org.sleuthkit.datamodel.ReadContentInputStream;
 import pt.cjmach.pstconv.MailMessageFormat;
+import pt.cjmach.pstconv.PstConvertResult;
 import pt.cjmach.pstconv.PstConverter;
 
 /**
@@ -89,12 +87,9 @@ public class ExportPSTFileAction extends AbstractAction {
             ph.start();
             ph.switchToIndeterminate();
             try {
-                Instant start = Instant.now();
-                long messageCount = convertPstFile(outputDir, outputFormat, encoding);
-                Instant end = Instant.now();                
-                String elapsedTime = DurationFormatUtils.formatDuration(Duration.between(start, end).toMillis(), "HH'h'mm'm'ss.SSS'S'");
+                PstConvertResult result = convertPstFile(outputDir, outputFormat, encoding);
                 DialogDisplayer.getDefault().notifyLater(new NotifyDescriptor.Message(
-                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.finish", messageCount, elapsedTime))); // NOI18N
+                        NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.finish", result.getMessageCount(), result.getDurationInMillis() / 1000.0))); // NOI18N
             } catch (PSTException | MessagingException | IOException ex) {
                 MessageNotifyUtil.Notify.error(
                         NbBundle.getMessage(ExportPSTFileAction.class, "ExportPSTFileAction.progressHandle.error"), // NOI18N
@@ -107,7 +102,7 @@ public class ExportPSTFileAction extends AbstractAction {
         task.schedule(0);
     }
 
-    long convertPstFile(File outputDir, MailMessageFormat outputFormat, String encoding) throws PSTException, MessagingException, IOException {
+    PstConvertResult convertPstFile(File outputDir, MailMessageFormat outputFormat, String encoding) throws PSTException, MessagingException, IOException {
         PstConverter pstconv = new PstConverter();
         try (ReadContentInputStream stream = new ReadContentInputStream(file)) {
             PSTFile pstFile = new PSTFile(new PSTInputStreamContent(stream));

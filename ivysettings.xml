@@ -7,6 +7,9 @@
     
     <resolvers>
         <chain name="main">
+            <filesystem name="local" m2compatible="true">
+                <artifact pattern="${ivy.settings.dir}/m2/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+            </filesystem>
             <ibiblio name="central" root="https://repo1.maven.org/maven2" m2compatible="true"/>
             <ibiblio name="ibiblio" m2compatible="true"/>
             <ibiblio name="github" root="https://maven.pkg.github.com/cjmach/pstconv" m2compatible="true" />
