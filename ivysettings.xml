@@ -2,7 +2,7 @@
     <settings defaultResolver="main"/>
     
     <property name="github.user" value="cjmach" override="false"/>
-    <property name="github.token" value="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"  override="true"/>
+    <property name="github.token" value="token" override="false"/>
     <credentials host="maven.pkg.github.com" realm="GitHub Package Registry" username="${github.user}" passwd="${github.token}"/>
     
     <resolvers>
