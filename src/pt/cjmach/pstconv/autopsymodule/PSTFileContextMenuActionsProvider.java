@@ -45,6 +45,9 @@ public class PSTFileContextMenuActionsProvider implements ContextMenuActionsProv
         }
         final AbstractFile file = nodes.iterator().next();
         String mimeType = file.getMIMEType();
+        if (mimeType == null) {
+            return Collections.<Action>emptyList();
+        }
         switch (mimeType) {
             case "application/vnd.ms-outlook-pst":
             case "application/vnd.ms-outlook":

@@ -32,7 +32,7 @@ public class CharsetComboBoxModel extends DefaultComboBoxModel<String> {
     
     private CharsetComboBoxModel(Set<String> charsetNames) {
         super(charsetNames.toArray(new String[charsetNames.size()]));
-        setSelectedItem(StandardCharsets.UTF_8.name());
+        setSelectedItem(StandardCharsets.ISO_8859_1.name());
     }
     
 }
