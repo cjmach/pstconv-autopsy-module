@@ -1,0 +1,51 @@
+name: Ant Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - uses: cjmach/setup-autopsy-action@v1
+        with:
+          version: '4.20.0'
+
+      - name: Build NBMs with Ant
+        run: >-
+          ant -noinput -buildfile build.xml
+          -Dnbplatform.default.netbeans.dest.dir=${{ github.workspace }}/autopsy
+          -Dnbplatform.default.harness.dir=${{ github.workspace }}/autopsy/harness
+          nbms
+      
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/updates/
+  
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${\{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+    
