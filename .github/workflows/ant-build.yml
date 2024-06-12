@@ -20,7 +20,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           
-      - uses: cjmach/setup-autopsy@v1
+      - uses: cjmach/setup-autopsy-action@v1
         with:
           version: '4.20.0'
 
