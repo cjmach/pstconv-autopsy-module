@@ -12,7 +12,7 @@
     
     <target name="get-deps" description="retrieve dependencies using ivy" depends="init-ivy">
         <ivy:settings file="ivysettings.xml" />
-        <ivy:resolve log="quiet"/>
+        <ivy:resolve log="default"/>
         <ivy:retrieve pattern="${ext.dir}/[artifact]-[revision](-[classifier]).[ext]" />    
     </target>
     
