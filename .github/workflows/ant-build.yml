@@ -39,5 +39,5 @@ jobs:
           -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/netbeans/harness
           build
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           
