@@ -1,0 +1,43 @@
+name: Java CI with Ant
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout project
+    
+      - uses: actions/setup-java@v4
+        name: Set up JDK 17
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+
+      - uses: cjmach/setup-netbeans-action@v2.1
+        name: Setup Autopsy distribution
+        with:
+          version: '18'
+          
+      - uses: cjmach/setup-autopsy-action@v1
+        with:
+          version: '4.21.0'
+
+      - name: Run the Ant build target
+        run: >-
+          ant -noinput -buildfile build.xml
+          -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
+          -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/netbeans/harness
+          build
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # https://stackoverflow.com/a/67406422/1221007
+          

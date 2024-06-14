@@ -1,0 +1,44 @@
+name: Ant Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - uses: cjmach/setup-netbeans-action@v2.1
+        name: Setup Autopsy distribution
+        with:
+          version: '18'
+
+      - uses: cjmach/setup-autopsy-action@v1
+        with:
+          version: '4.21.0'
+
+      - name: Build NBMs with Ant
+        run: >-
+          ant -noinput -buildfile build.xml
+          -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
+          -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/autopsy/harness
+          nbm
+      
+      - name: Upload jar to release
+        run: |
+          echo "Uploading to ref ${{ github.event.release.tag_name }}..."
+          gh release upload ${{ github.event.release.tag_name }} ${{ github.workspace }}/build/*.nbm
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+    
