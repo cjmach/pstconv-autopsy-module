@@ -32,7 +32,7 @@ jobs:
         run: >-
           ant -noinput -buildfile build.xml
           -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
-          -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/autopsy/harness
+          -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/netbeans/harness
           nbm
       
       - name: Upload jar to release
