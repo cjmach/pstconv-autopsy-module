@@ -1,6 +1,7 @@
 <ivysettings>
     <settings defaultResolver="main"/>
     
+    <property environment="env"/>
     <property name="github.user" value="cjmach" override="false"/>
     <property name="github.token" value="${env.ACCESS_TOKEN}" override="false" ifset="env.ACCESS_TOKEN" />
     <credentials host="maven.pkg.github.com" realm="GitHub Package Registry" username="${github.user}" passwd="${github.token}"/>
