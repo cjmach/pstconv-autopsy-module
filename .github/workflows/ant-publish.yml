@@ -34,6 +34,8 @@ jobs:
           -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
           -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/netbeans/harness
           nbm
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # https://stackoverflow.com/a/67406422/1221007
       
       - name: Upload jar to release
         run: |
