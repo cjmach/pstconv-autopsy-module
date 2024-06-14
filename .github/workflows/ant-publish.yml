@@ -16,13 +16,13 @@ jobs:
       - name: Set up JDK 8
         uses: actions/setup-java@v4
         with:
-          java-version: '8'
+          java-version: '11'
           distribution: 'temurin'
           
       - uses: cjmach/setup-netbeans-action@v2.1
         name: Setup Autopsy distribution
         with:
-          version: '11.3'
+          version: '18'
 
       - uses: cjmach/setup-autopsy-action@v1
         with:

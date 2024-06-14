@@ -17,9 +17,9 @@ jobs:
         name: Checkout project
     
       - uses: actions/setup-java@v4
-        name: Set up JDK 8
+        name: Set up JDK 11
         with:
-          java-version: '8'
+          java-version: '11'
           distribution: 'temurin'
           
 
@@ -34,7 +34,7 @@ jobs:
 
       - name: Run the Ant build target
         run: >-
-          ant -verbose -noinput -buildfile build.xml
+          ant -noinput -buildfile build.xml
           -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
           -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/netbeans/harness
           build
