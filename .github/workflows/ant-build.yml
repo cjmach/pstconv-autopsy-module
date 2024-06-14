@@ -34,7 +34,7 @@ jobs:
 
       - name: Run the Ant build target
         run: >-
-          ant -noinput -buildfile -verbose build.xml
+          ant -verbose -noinput -buildfile build.xml
           -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
           -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/netbeans/harness
           build
