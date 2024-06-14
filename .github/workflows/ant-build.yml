@@ -26,7 +26,7 @@ jobs:
       - uses: cjmach/setup-netbeans-action@v2.1
         name: Setup Autopsy distribution
         with:
-          version: '11.3'
+          version: '18'
           
       - uses: cjmach/setup-autopsy-action@v1
         with:
