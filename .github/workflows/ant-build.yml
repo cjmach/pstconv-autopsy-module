@@ -30,7 +30,7 @@ jobs:
           
       - uses: cjmach/setup-autopsy-action@v1
         with:
-          version: '4.20.0'
+          version: '4.21.0'
 
       - name: Run the Ant build target
         run: >-
