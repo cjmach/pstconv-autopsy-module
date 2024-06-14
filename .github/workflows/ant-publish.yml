@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -33,24 +33,12 @@ jobs:
           ant -noinput -buildfile build.xml
           -Dnbplatform.Autopsy.netbeans.dest.dir=${{ github.workspace }}/autopsy
           -Dnbplatform.Autopsy.harness.dir=${{ github.workspace }}/autopsy/harness
-          nbms
+          nbm
       
-      - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build/updates/
-  
-  deploy:
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${\{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Upload jar to release
+        run: |
+          echo "Uploading to ref ${{ github.event.release.tag_name }}..."
+          gh release upload ${{ github.event.release.tag_name }} ${{ github.workspace }}/build/*.nbm
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
     
